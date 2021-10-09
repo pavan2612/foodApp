@@ -16,15 +16,14 @@ const MealItemForm = (props) => {
         SetenteredAmountState(false)
         return
     }
-    props.addToCart(enteredAmountNumber)
+    props.onAddToCart(enteredAmountNumber)
     }
-  
     return (
         <form className={styles.form} onSubmit={submitHandler}>
             <Input 
             label='Amount' 
+            ref={amountInputRef}
             input={{
-                ref:{amountInputRef},
                 type:'number',
                 id: 'amount_'+ props.id,
                 min:'1',

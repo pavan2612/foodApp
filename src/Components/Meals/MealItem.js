@@ -6,11 +6,11 @@ import { useContext } from 'react';
 
 const MealItem = (props) => {
     const cartCtx = useContext(CartContext)
-    const addToCart = (amount) =>{ 
-        cartCtx.addItem({
+    const addToCartHandler = (Amount) =>{ 
+        cartCtx.addItems({
             id:props.id,
             name:props.name,
-            amount:amount,
+            amount:Amount,
             price:props.price
         })
     }
@@ -22,7 +22,7 @@ const MealItem = (props) => {
                 <p className={styles.price}>'${props.price.toFixed(2)}`</p>
             </div>
             <div>
-                <MealItemForm id={props.id}/>
+                <MealItemForm id={props.id} onAddToCart={addToCartHandler}/>
             </div>
         </li>
     )
