@@ -3,8 +3,13 @@ import Modal from '../UI/Modal'
 import CartItem from './CartItem'
 import CartContext from '../../Store/Cart-Context';
 import { useContext } from 'react';
+import CheckOut from './CheckOut';
+import { Fragment, useState } from 'react/cjs/react.development';
 
 const Cart = (props) => {
+    const [isCheckOut ,setIsCheckOut] = useState(false)
+    const [isSubmit,setIsSubmit] = useState(false)
+    const [hadSubmit,setHadSubmit] =useState(false)
     const CartCtx = useContext(CartContext)
 
     const totalAmount = `$${CartCtx.totalAmount.toFixed(2)}`
@@ -31,17 +36,50 @@ const Cart = (props) => {
         ))}</ul>
     )
 
+    const oncheckHandler = () => {
+        setIsCheckOut(true)
+    }
+
+    const submitData = (userData) => {
+        setIsSubmit(true)
+        fetch('https://practicereact-755c2-default-rtdb.firebaseio.com/usersData.json',{
+            method:'POST',
+            body : JSON.stringify({
+                user:userData,
+                items: CartCtx.items
+            })
+        })
+        setIsSubmit(false)
+        setHadSubmit(true)
+        CartCtx.clearItems()
+    }
+
     return(
         <Modal onClick={props.onClose}>
-            {cartItems}
-            <div className={styles.total}>
-                <span>Total Amount</span>
-                <span>{totalAmount}</span>
-            </div>
-            <div className={styles.actions}>
-                <button className={styles['button--alt']} onClick={props.onClose}>Close</button>
-                {hasItems && <button className={styles.button}>Order</button> }
-            </div>
+            {hadSubmit && 
+            <Fragment>
+                <p>Successfully ordered. We will connect you shortly!!</p>
+                <div className={styles.actions}>
+                        <button type='button' className={styles['button--alt']} onClick={props.onClose}>Close</button>
+                </div>
+            </Fragment>
+            }
+            {!hadSubmit &&
+            <Fragment>
+                {cartItems}
+                <div className={styles.total}>
+                    <span>Total Amount</span>
+                    <span>{totalAmount}</span>
+                </div>
+                {isCheckOut && <CheckOut onConfirm={submitData} onCancel={props.onClose}/>}
+                {!isCheckOut &&
+                <div className={styles.actions}>
+                    <button className={styles['button--alt']} onClick={props.onClose}>Close</button>
+                    {hasItems && <button className={styles.button} onClick={oncheckHandler}>Order</button> }
+                </div>
+                }
+            </Fragment>
+            }
         </Modal>
     )
 }
