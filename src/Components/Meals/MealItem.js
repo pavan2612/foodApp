@@ -19,7 +19,7 @@ const MealItem = (props) => {
             <div>
                 <h3>{props.name}</h3>
                 <p className={styles.description}>{props.description}</p>
-                <p className={styles.price}>'${props.price.toFixed(2)}`</p>
+                <p className={styles.price}>${props.price.toFixed(2)}</p>
             </div>
             <div>
                 <MealItemForm id={props.id} onAddToCart={addToCartHandler}/>
