@@ -8,7 +8,7 @@ const CheckOut = (props) => {
         street:true,
         code:true,
         city:true
-    })
+    });
 
     const enteredNameRef = useRef() 
     const enteredStreetRef = useRef()
