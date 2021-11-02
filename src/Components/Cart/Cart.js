@@ -56,15 +56,15 @@ const Cart = (props) => {
 
     return(
         <Modal onClick={props.onClose}>
-            {hadSubmit && 
+            {!isSubmit && hadSubmit && 
             <Fragment>
-                <p>Successfully ordered. We will connect you shortly!!</p>
                 <div className={styles.actions}>
                         <button type='button' className={styles['button--alt']} onClick={props.onClose}>Close</button>
                 </div>
             </Fragment>
             }
-            {!hadSubmit &&
+            {isSubmit && <p>Successfully ordered. We will connect you shortly!!</p>}
+            {!isSubmit&& !hadSubmit &&
             <Fragment>
                 {cartItems}
                 <div className={styles.total}>
