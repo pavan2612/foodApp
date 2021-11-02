@@ -4,10 +4,10 @@ import CartItem from './CartItem'
 import CartContext from '../../Store/Cart-Context';
 import { useContext } from 'react';
 import CheckOut from './CheckOut';
-import { Fragment, useState } from 'react/cjs/react.development';
+import { Fragment, useState } from 'react';
 
 const Cart = (props) => {
-    const [isCheckOut ,setIsCheckOut] = useState(false)
+    const [isCheckOut ,setIsCheckOut] = useState(false);
     const [isSubmit,setIsSubmit] = useState(false)
     const [hadSubmit,setHadSubmit] =useState(false)
     const CartCtx = useContext(CartContext)
