@@ -29,7 +29,7 @@ const MealItemForm = (props) => {
                 min:'1',
                 step:'1',
                 defaultValue:'1',
-                numberOfItems:{}
+                numberofitems:{}
             }}/>
             <button>+ Add</button>
             {!enteredAmountState && <p>Enter amount greater than 1</p>}
